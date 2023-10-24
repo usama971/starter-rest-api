@@ -1,72 +1,54 @@
-const express = require('express')
-const app = express()
-const db = require('@cyclic.sh/dynamodb')
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+const Express = require('express');
+var cors = require('cors');
+const App = Express();
+App.use(Express.json());
+App.use(cors());
 
-// #############################################################################
-// This configures static hosting for files in /public that have the extensions
-// listed in the array.
-// var options = {
-//   dotfiles: 'ignore',
-//   etag: false,
-//   extensions: ['htm', 'html','css','js','ico','jpg','jpeg','png','svg'],
-//   index: ['index.html'],
-//   maxAge: '1m',
-//   redirect: false
-// }
-// app.use(express.static('public', options))
-// #############################################################################
+const Mongoose = require("mongoose");
+const url = "mongodb+srv://admin:admin1234@dhobionline.agzb49y.mongodb.net/";
 
-// Create or Update an item
-app.post('/:col/:key', async (req, res) => {
-  console.log(req.body)
+Mongoose.connect(url, { useNewUrlParser: true });
+const Mongo = Mongoose.connection;
 
-  const col = req.params.col
-  const key = req.params.key
-  console.log(`from collection: ${col} delete key: ${key} with params ${JSON.stringify(req.params)}`)
-  const item = await db.collection(col).set(key, req.body)
-  console.log(JSON.stringify(item, null, 2))
-  res.json(item).end()
-})
+Mongo.on("open", () => {
+  console.log("MongoDB Connected!");
+});
 
-// Delete an item
-app.delete('/:col/:key', async (req, res) => {
-  const col = req.params.col
-  const key = req.params.key
-  console.log(`from collection: ${col} delete key: ${key} with params ${JSON.stringify(req.params)}`)
-  const item = await db.collection(col).delete(key)
-  console.log(JSON.stringify(item, null, 2))
-  res.json(item).end()
-})
 
-// Get a single item
-app.get('/:col/:key', async (req, res) => {
-  const col = req.params.col
-  const key = req.params.key
-  console.log(`from collection: ${col} get key: ${key} with params ${JSON.stringify(req.params)}`)
-  const item = await db.collection(col).get(key)
-  console.log(JSON.stringify(item, null, 2))
-  res.json(item).end()
-})
+App.get('/api', (req, res) => {
+  res.send('Hello, This is React Backend!');
+});
 
-// Get a full listing
-app.get('/:col', async (req, res) => {
-  const col = req.params.col
-  console.log(`list collection: ${col} with params: ${JSON.stringify(req.params)}`)
-  const items = await db.collection(col).list()
-  console.log(JSON.stringify(items, null, 2))
-  res.json(items).end()
-})
+// user
+const user_path = require("./Route/user/user");
+App.use("/api/user", user_path);
 
-// Catch all handler for all other request.
-app.use('*', (req, res) => {
-  res.json({ msg: 'no route handler found' }).end()
-})
+// shop
+const shop_path = require("./Route/shop/Shop");
+App.use("/api/shop", shop_path);
 
-// Start the server
-const port = process.env.PORT || 3000
-app.listen(port, () => {
-  console.log(`index.js listening on ${port}`)
-})
+// area
+const area_path = require("./Route/area/area");
+App.use("/api/area", area_path);
+
+
+// address
+const address_path = require("./Route/address/address");
+App.use("/api/address", address_path);
+
+// userprofile
+const userprofile_path = require("./Route/user_profile/user_profile");
+App.use("/api/userprofile", userprofile_path);
+
+
+
+
+
+
+const port = process.env.PORT || 3000;
+App.listen(port, () => {
+  console.log("Server Running on port:",port);
+});
+
+
