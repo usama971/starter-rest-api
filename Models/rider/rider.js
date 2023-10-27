@@ -15,6 +15,9 @@ const rider_schema = new Mongoose.Schema({
 	national_license:{
 		type: Number
 	},
+	phone_number:{
+		type: Number
+	},
 
 	address_id :{
 		type: Mongoose.Schema.Types.ObjectId,
