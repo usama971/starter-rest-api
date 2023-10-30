@@ -12,8 +12,8 @@ const verifyJWT = require('./middleWare/verifyJWT');
 //^thing we require for Backend other then routs
 
 const Mongoose = require("mongoose");
-const url = "mongodb://127.0.0.1/dhobi_online";
-// const url = "mongodb+srv://admin:admin1234@dhobionline.agzb49y.mongodb.net/";
+// const url = "mongodb://127.0.0.1/dhobi_online";
+const url = "mongodb+srv://admin:admin1234@dhobionline.agzb49y.mongodb.net/";
 
 
 Mongoose.connect(url, { useNewUrlParser: true });
@@ -47,9 +47,13 @@ App.use('/api/product', require('./Route/product/product'));
 const userprofile_path = require("./Route/user_profile/user_profile");
 App.use("/api/userprofile", userprofile_path);
 
-// userprofile
+// riderprofile
 const riderprofile_path = require("./Route/rider_profile/rider_profile");
 App.use("/api/riderprofile", riderprofile_path);
+
+// shopprofile
+const shopprofile_path = require("./Route/shop_profile/shop_profile");
+App.use("/api/shopprofile", shopprofile_path);
 
 App.use(verifyJWT);
 
