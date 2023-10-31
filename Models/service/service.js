@@ -3,7 +3,7 @@ const Mongoose = require( 'mongoose');
 
 const service_schema= new Mongoose.Schema({
 
-	service_type:{
+	service_option:{
 		type: String
 	},
 

@@ -55,7 +55,7 @@ App.use("/api/riderprofile", riderprofile_path);
 const shopprofile_path = require("./Route/shop_profile/shop_profile");
 App.use("/api/shopprofile", shopprofile_path);
 
-App.use(verifyJWT);
+// App.use(verifyJWT);
 
 // user
 const user_path = require("./Route/user/user");
@@ -68,6 +68,10 @@ App.use("/api/shop", shop_path);
 // area
 const area_path = require("./Route/area/area");
 App.use("/api/area", area_path);
+
+// service
+const service_path = require("./Route/service/service");
+App.use("/api/service", service_path);
 
 
 // address
