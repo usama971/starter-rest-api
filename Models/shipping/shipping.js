@@ -7,6 +7,10 @@ const shipping_schema= new Mongoose.Schema({
 	},
 	price:{
 		type: Number
+	},
+	soft_delete:{
+		type: Boolean,
+		default: false
 	}
 });
 

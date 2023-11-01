@@ -73,6 +73,10 @@ App.use("/api/area", area_path);
 const service_path = require("./Route/service/service");
 App.use("/api/service", service_path);
 
+// shipping
+const shipping_path = require("./Route/shipping/shipping");
+App.use("/api/shipping", shipping_path);
+
 
 // address
 const address_path = require("./Route/address/address");
