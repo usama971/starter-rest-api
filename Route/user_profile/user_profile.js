@@ -68,7 +68,7 @@ MyRouter.post("/Add", async (req, res) => {
 });
 
 MyRouter.get("/getAll", async (req, res) => {
-  console.log("user");
+  console.log("user123");
 
   const user = await UserDetails.find().populate({
     path: "address_id",

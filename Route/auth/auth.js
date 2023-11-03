@@ -42,7 +42,7 @@ const handleAuth = async (req, res) => {
                 },
                 process.env.ACCESS_TOKEN_SECRET,
                 {
-                    expiresIn: "5min"  // in production make it 5 min or 10min 
+                    expiresIn: "2h"  // in production make it 5 min or 10min 
             }
             
         );
@@ -52,7 +52,7 @@ const handleAuth = async (req, res) => {
             { "id": foundUser._id },
             process.env.REFRESH_TOKEN_SECRET,
             {
-                expiresIn: "30min"  // in production make it 5 min or 10min 
+                expiresIn: "5d"  // in production make it 5 min or 10min 
             }
         );
 
