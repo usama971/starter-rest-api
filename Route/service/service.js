@@ -66,6 +66,8 @@ MyRouter.get("/pagination/:pageNumber/:pageSize", async (req, res) => {
 
 
 MyRouter.post("/Add", async (req, res)=>{
+	return res.send(" mai aa gya hun AddService")
+
 	const NewService= req.body ;
 	// console.log(req.body)
 	const {error} = ServiceSchema(NewService);
