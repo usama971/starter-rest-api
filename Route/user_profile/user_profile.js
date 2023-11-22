@@ -71,8 +71,9 @@ MyRouter.post("/Add", async (req, res) => {
   // 	res.status(500).send('Something failed.');
   // }
 });
+MyRouter.get("/getAll", async (req, res) => {
 
-MyRouter.get("/getAll", verifyRoles(ROLES_LIST.SuperAdmin, ROLES_LIST.Admin, ROLES_LIST.User), async (req, res) => {
+// MyRouter.get("/getAll", verifyRoles(ROLES_LIST.SuperAdmin, ROLES_LIST.Admin, ROLES_LIST.User), async (req, res) => {
   console.log("user123");
 
   const user = await UserDetails.find().populate({
