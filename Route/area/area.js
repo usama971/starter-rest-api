@@ -7,7 +7,7 @@ const AreaSchema= require("../../Schema/area/area");
 MyRouter.get("/", async(req, res)=>{
 	const allAreas = await AreaDetails.find();
 	try{
-		res.send(allAreas)
+		res.send("allAreas")
 	}
 	catch(err){
 		res.send("Error" + err)

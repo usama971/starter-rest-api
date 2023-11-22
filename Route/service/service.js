@@ -4,8 +4,8 @@ const MyRouter= Express.Router();
 const ServiceDetails= require("../../Models/service/service");
 const ServiceSchema= require("../../Schema/service/service");
 
-const  ROLES_LIST= require('../../config/roles')
-const  verifyRoles= require('../../middleWare/verifyRoles') 
+// const  ROLES_LIST= require('../../config/roles')
+// const  verifyRoles= require('../../middleWare/verifyRoles') 
 
 MyRouter.get("/",  async(req, res)=>{
 	const allServices = await ServiceDetails.find();
@@ -84,28 +84,28 @@ MyRouter.post("/Add", async (req, res)=>{
 })
 
 
-MyRouter.patch('/Update/:id', verifyRoles(ROLES_LIST.SuperAdmin),async (req, res) => {
-	const { error } = ServiceSchema(req.body); 
-	if (error) return res.status(400).send(error.details[0].message);
+// MyRouter.patch('/Update/:id', verifyRoles(ROLES_LIST.SuperAdmin),async (req, res) => {
+// 	const { error } = ServiceSchema(req.body); 
+// 	if (error) return res.status(400).send(error.details[0].message);
   
-	const service = await ServiceDetails.findByIdAndUpdate(req.params.id,
-	  { 
-		service_option: req.body.service_option,
-		price: req.body.price
-	  }, { new: true });
+// 	const service = await ServiceDetails.findByIdAndUpdate(req.params.id,
+// 	  { 
+// 		service_option: req.body.service_option,
+// 		price: req.body.price
+// 	  }, { new: true });
   
-	if (!service) return res.status(404).send('The service with the given ID was not found.');
+// 	if (!service) return res.status(404).send('The service with the given ID was not found.');
 	
-	res.send(service);
-  });
+// 	res.send(service);
+//   });
 
 
-  MyRouter.delete('/delete/:id', verifyRoles(ROLES_LIST.SuperAdmin), async (req, res) => {
-	const service = await ServiceDetails.findByIdAndRemove(req.params.id);
+//   MyRouter.delete('/delete/:id', verifyRoles(ROLES_LIST.SuperAdmin), async (req, res) => {
+// 	const service = await ServiceDetails.findByIdAndRemove(req.params.id);
   
-	if (!service) return res.status(404).send('The service with the given ID was not found.');
+// 	if (!service) return res.status(404).send('The service with the given ID was not found.');
   
-	res.send(service);
-  });
+// 	res.send(service);
+//   });
 
 module.exports = MyRouter;
