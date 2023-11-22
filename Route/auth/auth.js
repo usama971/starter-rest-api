@@ -9,9 +9,10 @@ const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+// console.log("auth");
 
 const handleAuth = async (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     const phone_number = req.body.phone_number;
     const pwd = req.body.password;
 
@@ -20,7 +21,7 @@ const handleAuth = async (req, res) => {
     }
 
     const foundUser = await UserDetails.findOne({ phone_number: phone_number }).exec();
-    // console.log("ma error hun",foundUser);
+    console.log("ma error hun",foundUser);
 
     if (!foundUser) return res.status(400).json({ "message": "User does't exist" });
     // console.log("kunjum kunjum");
@@ -29,17 +30,11 @@ const handleAuth = async (req, res) => {
     
     if (match) {
         
-        // console.log(foundUser)
+        console.log(foundUser)
         const roles = Object.values(foundUser.roles)
         
         //saving token
-        const accessToken = jwt.sign(
-            {
-                "Userinfo": {
-                    "id": foundUser._id,
-                    "roles":roles
-                    }
-                },
+        const accessToken = jwt.sign({"Userinfo": {"id": foundUser._id,"roles":roles}},
                 process.env.ACCESS_TOKEN_SECRET,
                 {
                     expiresIn: "2h"  // in production make it 5 min or 10min 

@@ -14,6 +14,9 @@ const bcrypt = require('bcrypt');
 const Express = require("express");
 const MyRouter = Express.Router();
 
+const  ROLES_LIST= require('../../config/roles')
+const  verifyRoles= require('../../middleWare/verifyRoles') 
+
 //  Fawn.init(mongoose)
 MyRouter.post("/Add", async (req, res) => {
  
@@ -27,8 +30,7 @@ MyRouter.post("/Add", async (req, res) => {
     return res.status(400).send(address.error.details[0].message);
 
   // user
-    // const hashedPwd = await bcrypt.hash(req.body.password, 10);
-    // NewClient.password = hashedPwd;
+    const hashedPwd = await bcrypt.hash(req.body.password, 10);
   const NewUser = {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
@@ -40,6 +42,9 @@ MyRouter.post("/Add", async (req, res) => {
   };
   const user = UserSchema(NewUser);
   if (user.error) return res.status(400).send(user.error.details[0].message);
+
+  const myUser = await UserDetails.findOne({phone_number: req.body.phone_number});
+  if(myUser) return res.status(400).send("user already registered");
 
   let AddAddress = new AddressDetails(NewAddress);
   AddAddress = await AddAddress.save();
@@ -67,7 +72,7 @@ MyRouter.post("/Add", async (req, res) => {
   // }
 });
 
-MyRouter.get("/getAll", async (req, res) => {
+MyRouter.get("/getAll", verifyRoles(ROLES_LIST.SuperAdmin, ROLES_LIST.Admin, ROLES_LIST.User), async (req, res) => {
   console.log("user123");
 
   const user = await UserDetails.find().populate({
@@ -85,7 +90,7 @@ MyRouter.get("/getAll", async (req, res) => {
  
 });
 
-MyRouter.get("/getOne/:id", async (req, res) => {
+MyRouter.get("/getOne/:id", verifyRoles(ROLES_LIST.User), async (req, res) => {
   const userId = req.params.id;
 
   const user = await UserDetails.findById(userId)
@@ -104,7 +109,7 @@ MyRouter.get("/getOne/:id", async (req, res) => {
   res.send(user);
 });
 
-MyRouter.patch('/Update/:userId', async (req, res) => {
+MyRouter.patch('/Update/:userId', verifyRoles(ROLES_LIST.SuperAdmin, ROLES_LIST.User), async (req, res) => {
   const userId = req.params.userId;
   const { first_name, last_name, password, phone_number, account_type,
     terms_and_condition,area_id,address } = req.body;

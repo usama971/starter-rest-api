@@ -36,6 +36,10 @@ MyRouter.post("/Add", async (req, res) => {
   const rider = RiderSchema(NewRider);
   if (rider.error) return res.status(400).send(rider.error.details[0].message);
 
+  const myRider = await RiderDetails.findOne({phone_number: req.body.phone_number,});
+  
+  if(myRider) return res.status(400).send("rider already registered");
+
   let AddAddress = new AddressDetails(NewAddress);
   AddAddress = await AddAddress.save();
   console.log("address added successfully");

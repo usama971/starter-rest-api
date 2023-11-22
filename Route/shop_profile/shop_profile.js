@@ -37,6 +37,9 @@ MyRouter.post("/Add", async (req, res) => {
   const shop = ShopSchema(NewShop);
   if (shop.error) return res.status(400).send(shop.error.details[0].message);
 
+  const myShop = await ShopDetails.findOne({phone_number: req.body.phone_number});
+  if(myShop) return res.status(400).send("shop already registered");
+
   let AddAddress = new AddressDetails(NewAddress);
   AddAddress = await AddAddress.save();
 

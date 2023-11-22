@@ -1,10 +1,11 @@
 const Express= require("express");
 const MyRouter= Express.Router();
 
+
 const ShippingDetails= require("../../Models/shipping/shipping");
 const ShippingSchema= require("../../Schema/shipping/shipping");
 
-MyRouter.get("/", async(req, res)=>{
+MyRouter.get("/",  async(req, res)=>{
 	const allShippings = await ShippingDetails.find();
 	try{
 		res.send(allShippings)

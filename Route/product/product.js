@@ -24,6 +24,10 @@ MyRouter.post("/Add", async (req, res) => {
     res.status(404).send({ message: error.details[0].message });
   } 
   else {
+
+    const myProduct = await productDetails.findOne({name: req.body.name});
+    if(myProduct) return res.status(400).send("Product is already exist");
+
     let AddProduct = new productDetails(NewProduct);
     AddProduct = await AddProduct.save();
     res.send(AddProduct);

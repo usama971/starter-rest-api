@@ -18,6 +18,7 @@ const handleLogout = async (req, res) => {
     const refreshToken = cookies.jwt;
 
     const foundUser = await userDB.findOne({ refreshToken }).exec();
+    
     if (!foundUser) {
         res.clearCookie('jwt', { httpOnly: true });
         return res.status(400).json({ "message": "User does't exist" });

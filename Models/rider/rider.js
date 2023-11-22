@@ -15,7 +15,7 @@ const rider_schema = new Mongoose.Schema({
 	national_license:{
 		type: Number
 	},
-	phone_number:{
+	phone_number: {
 		type: Number
 	},
 

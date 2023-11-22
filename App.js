@@ -31,16 +31,13 @@ App.get('/api', (req, res) => {
 });
 
 //User Authentication
-App.use("/api/user_auth", require('./Route/auth/auth'));
+App.use("/api/user_auth",require('./Route/auth/auth'));
 
 //User Token Refreshing 
 App.use('/api/refresh', require('./Route/auth/refresh'));
 
 //User user logout 
 App.use('/api/logout', require('./Route/auth/logout'));
-
-//User user logout 
-App.use('/api/product', require('./Route/product/product'));
 
 
 // userprofile
@@ -103,6 +100,6 @@ App.use('/api/review', require('./Route/reviews/reviews'));
 const port = process.env.PORT || 7000;
 App.listen(port, () => {
   console.log("Server Running on port:",port);
-});
+}); 
 
 

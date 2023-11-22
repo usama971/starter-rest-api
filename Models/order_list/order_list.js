@@ -17,6 +17,10 @@ const order_list_schema= new Mongoose.Schema({
 	total_cost:{
 		type: Number
 	},
+	array_of_product:{
+		type: Array,
+		
+	},
 	user_id:{
 		type: Mongoose.Schema.Types.ObjectId,
 		ref: 'user'
@@ -25,10 +29,7 @@ const order_list_schema= new Mongoose.Schema({
 		type: Mongoose.Schema.Types.ObjectId,
 		ref:'shop'
 	},
-	product_id:{
-		type: Mongoose.Schema.Types.ObjectId,
-		ref: 'product'
-	},
+	
 	service_id:{
 		type: Mongoose.Schema.Types.ObjectId,
 		ref: 'service'

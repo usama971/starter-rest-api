@@ -18,7 +18,7 @@ MyRouter.post("/Add", async (req, res)=>{
 	 console.log("kaho k error");
 	 return res.status(400).send(error.details[0].message);
 	}
-
+console.log("NewOrder", NewOrder)
 	let AddOrder= new OrderDetails(NewOrder);
 	AddOrder= await AddOrder.save();
 	res.send(AddOrder)

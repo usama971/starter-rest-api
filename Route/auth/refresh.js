@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const userDB = require('../../Models/user/user');
+// console.log("auth");
 
 const jwt = require('jsonwebtoken');
 require('dotenv').config();

@@ -7,9 +7,9 @@ const order_listSchema = (order_list) => {
 	delivery_type: Joi.string(),
     quantity: Joi.number(),
 	total_cost: Joi.number(),
+    array_of_product: Joi.array(),
     user_id: Joi.string(),
 	shop_id: Joi.string(),
-    product_id: Joi.string(),
 	service_id: Joi.string(),
     order_status_id: Joi.string(),
 	shipping_id: Joi.string()

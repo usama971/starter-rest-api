@@ -24,7 +24,32 @@ const user_model = new Mongoose.Schema({
     address_id:{
         type: Mongoose.Schema.Types.ObjectId,
         ref: 'address'
-      }
+      },
+      
+    roles:{
+        User: {
+            type:Number,
+            required:false,
+
+            // default:2001
+        },
+        Rider: {
+            type:Number,
+            required:false,
+        },
+        Admin: {
+            type: Number,
+            required:false
+        },
+        SuperAdmin: {
+            type: Number,
+            required:false
+        }
+    },
+    refreshToken: {
+        type: String,
+        required:false
+    }
     
 });
 
