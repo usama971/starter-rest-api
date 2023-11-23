@@ -1,0 +1,2 @@
+20231027	16:56:15	5d93f975-1d4b-400c-bf47-b710c648c9bb	POST	::1	PostmanRuntime/7.34.0	/api/userprofile/getAll
+20231027	16:56:36	29092d40-183a-41ce-9846-e962a0d050af	POST	::1	PostmanRuntime/7.34.0	/api/userprofile/Add
