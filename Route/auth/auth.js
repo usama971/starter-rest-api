@@ -34,37 +34,35 @@ const handleAuth = async (req, res) => {
         const roles = Object.values(foundUser.roles)
         
         //saving token
-        // const accessToken = jwt.sign({"Userinfo": {"id": foundUser._id,"roles":roles}},
-        //         process.env.ACCESS_TOKEN_SECRET,
-        //         {
-        //             expiresIn: "2h"  // in production make it 5 min or 10min 
-        //     }
+        const accessToken = jwt.sign({"Userinfo": {"id": foundUser._id,"roles":roles}},
+                process.env.ACCESS_TOKEN_SECRET,
+                {
+                    expiresIn: "2h"  // in production make it 5 min or 10min 
+            }
             
-        // );
+        );
 
                     
-        // const refreshToken = jwt.sign(
-        //     { "id": foundUser._id },
-        //     process.env.REFRESH_TOKEN_SECRET,
-        //     {
-        //         expiresIn: "5d"  // in production make it 5 min or 10min 
-        //     }
-        // );
+        const refreshToken = jwt.sign(
+            { "id": foundUser._id },
+            process.env.REFRESH_TOKEN_SECRET,
+            {
+                expiresIn: "5d"  // in production make it 5 min or 10min 
+            }
+        );
 
-        // foundUser.refreshToken = refreshToken;
-        // const result = await foundUser.save();
-        // console.log(result);
+        foundUser.refreshToken = refreshToken;
+        const result = await foundUser.save();
+        console.log(result);
         
-        // res.cookie('jwt', refreshToken, {
-        //     httpOnly: true,
-        //     sameSite: "None",
-        //     secure: true,
-        //     // maxAge: 24 * 60 * 60 * 1000
-        // });
+        res.cookie('jwt', refreshToken, {
+            httpOnly: true,
+            sameSite: "None",
+            secure: true,
+            // maxAge: 24 * 60 * 60 * 1000
+        });
         
-    //  res.status(201).json({ accessToken });
-     res.status(201).json("login successfully");
-
+     res.status(201).json({ accessToken });
     } else {
         res.status(400).json({"massage":`password does't match`})
     };
